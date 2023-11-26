@@ -7,8 +7,8 @@ const todoText = document.querySelector('#todoText')
 todoForm.addEventListener('submit', e => {
     e.preventDefault()
 
-    validateText(todoTitle)
-    validateText(todoText)
+    validateTitle(todoTitle)
+    validateTodo(todoText)
 })
 
 /* Error meddelande funktion, tar inputens parent och lägger till klassen
@@ -31,7 +31,7 @@ function setSuccess(input) {
 }
 
 /* validerar titeln*/
-function validateText(input) {
+function validateTitle(input) {
     if(input.value.trim() === '') {
         setError(input, 'Title cant be empty')
         return
@@ -42,5 +42,19 @@ function validateText(input) {
     }
 
     // Success 
+    setSuccess(input)
+}
+
+/* validerar todo */
+function validateTodo(input) {
+    if(input.value.trim() === '') {
+        setError(input, 'Todo cant be empty')
+        return
+    }
+    else if (input.value.trim().length <= 1) {
+        setError(input, 'Todo cant contain less than 2 characters')
+        return
+    }
+
     setSuccess(input)
 }

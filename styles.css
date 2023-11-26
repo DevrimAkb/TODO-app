@@ -34,11 +34,3 @@ h2 {
     display: flex;
     justify-content: space-around;
 }
-.btn {
-    border: none;
-    background-color: var(--main-blue-color);
-    color: white;
-    padding: .5em;
-    border: 3px solid white;
-    cursor: pointer;
-}

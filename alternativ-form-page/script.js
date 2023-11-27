@@ -8,8 +8,20 @@ todoForm.addEventListener('submit', e => {
     e.preventDefault()
 
     validateTitle(todoTitle)
-    validateTodo(todoText)
+    validateTodo(todoText) 
+
+   // En if sats som gör så att båda funktionerna måste gå igenom för att todon ska skickas
+   // Bara ett alternativ
+     if(validateTitle(todoTitle) &&
+     validateTodo(todoText)) {
+         console.log('todo skickad')
+     }
+     else {
+         console.log('Du måste fylla i')
+     }
 })
+
+
 
 /* Error meddelande funktion, tar inputens parent och lägger till klassen
 is-invalid, skriver även ut meddelandet */
@@ -34,27 +46,29 @@ function setSuccess(input) {
 function validateTitle(input) {
     if(input.value.trim() === '') {
         setError(input, 'Title cant be empty')
-        return
+        return false
     }
     else if (input.value.trim().length <= 1) {
         setError(input, 'Title cant contain less than 2 characters')
-        return
+        return false 
     }
 
     // Success 
     setSuccess(input)
+    return true
 }
 
 /* validerar todo */
 function validateTodo(input) {
     if(input.value.trim() === '') {
         setError(input, 'Todo cant be empty')
-        return
+        return false
     }
     else if (input.value.trim().length <= 1) {
         setError(input, 'Todo cant contain less than 2 characters')
-        return
+        return false
     }
 
     setSuccess(input)
+    return true
 }

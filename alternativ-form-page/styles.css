@@ -6,8 +6,8 @@
 :root {
     --main-blue-color: rgb(11, 184, 241);
     --faded-blue-color: rgba(11, 184, 241, 0.514);
-    --clr-bg: rgb(75, 75, 75);
-    --clr-gray-form: #888686;
+    --clr-bg: rgb(148, 148, 148);
+    --clr-gray-form: #d8d8d8;
     --clr-error: rgb(175, 13, 13);
     --clr-success: rgb(6, 143, 6);
 }
@@ -31,6 +31,7 @@ body {
 }
 
 #todoForm {
+    padding: 2rem;
     background-color: var(--clr-gray-form);
     border-radius: 1rem;
     min-width: 600px;
@@ -38,8 +39,8 @@ body {
 }
 
 .headline {
-    border-bottom: 1px solid darkgray;
     padding: 1rem;
+    border-bottom: 1px solid rgb(0, 0, 0);
 }
 
 .form-content {
@@ -60,7 +61,7 @@ body {
     width: 60%;
     padding: .3rem;
     border-radius: .5rem;
-    border: none;
+    border: 1px solid gray;
 }
 
 .invalid-input {
@@ -113,4 +114,5 @@ body {
     font-weight: bold;
     cursor: pointer;
     width: 100%;
+    border-radius: 1rem;
 }

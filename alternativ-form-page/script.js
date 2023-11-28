@@ -24,8 +24,6 @@ async function createTodo() {
             },
             body: JSON.stringify(post)
         })
-    
-         console.log(res)
  }
 
  /* validerar todo */
@@ -81,7 +79,7 @@ fetchPosts();
 //------------------------------------------------------------------
 
 
-// Funktion för att skriva ut todos (EJ KLAR lektion 8 timestamp: 1.29.40)
+// Funktion för att skriva ut todos (EJ KLAR lektion 8 timestamp: 1.29.04)
 
 
 
@@ -89,16 +87,25 @@ function renderPosts() {
     const listContainer = document.querySelector('#list-container')
     listContainer.innerHTML = ''
 
+
     posts.forEach(post => {
-        listContainer.innerHTML += `
-        <ul id=list-container>
-        <li></li>
-        </ul>
-        ${post.title}
-        `
+        listContainer.appendChild(createPostElement(post))
     })
+
+    // ----------------------------------------
+    //Det här funkar men är inte optimalt
+    //  posts.forEach(post => {
+    //      listContainer.innerHTML += `
+    //      <ul id=list-container>
+    //      <li>${post.title}</li>
+    //      </ul>
+    //      `
+    //  })
 }
 
+function createPostElement(post) {
+
+}
 
 
 

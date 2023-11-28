@@ -11,7 +11,6 @@ todoForm.addEventListener('submit', e => {
     validateTodo(todoText) 
 
    // En if sats som gör så att båda funktionerna måste gå igenom för att todon ska skickas
-   // Bara ett alternativ
      if(validateTitle(todoTitle) &&
      validateTodo(todoText)) {
          console.log('todo skickad')
@@ -72,3 +71,19 @@ function validateTodo(input) {
     setSuccess(input)
     return true
 }
+
+// -------------------------------------------------------------------------------------
+// Async api fetch
+
+const getData = async () => {
+    try{
+        const res = await fetch('https://js1-todo-api.vercel.app/api/todos?apikey=645478ef-292e-4731-ab3e-6aba10a07aa8');
+        const data = await res.json();
+        console.log(data);
+        } catch (err) {
+        console.log(err)};
+    };
+    
+    getData();
+
+

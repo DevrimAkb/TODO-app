@@ -21,9 +21,8 @@ body {
 }
 
 .container {
-    /* height: 500px; */
     /* width: 40%; */
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,6 +30,7 @@ body {
 }
 
 #todoForm {
+    /* height: 100vh; */
     padding: 2rem;
     background-color: var(--clr-gray-form);
     border-radius: 1rem;

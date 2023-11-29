@@ -87,26 +87,32 @@ function renderPosts() {
     const listContainer = document.querySelector('#list-container')
     listContainer.innerHTML = ''
 
-
-    posts.forEach(post => {
-        listContainer.appendChild(createPostElement(post))
-    })
-
+      posts.forEach(post => {
+          listContainer.appendChild(createPostElement(post))
+      })
+    }
     // ----------------------------------------
     //Det här funkar men är inte optimalt
-    //  posts.forEach(post => {
-    //      listContainer.innerHTML += `
-    //      <ul id=list-container>
-    //      <li>${post.title}</li>
-    //      </ul>
-    //      `
-    //  })
+//         posts.forEach(post => {
+//            listContainer.innerHTML += `
+//             <li>${post.title}</li>
+//             `
+//         })
+//  }
+
+  function createPostElement(post) {
+      const postDiv = createCustomElement('li', 'button', post.title)
+      console.log(postDiv)
+      return postDiv
 }
 
-function createPostElement(post) {
-
-}
-
-
-
-
+  function createCustomElement(type, classList, text,) {
+      const element = document.createElement(type)
+      if(classList.length < 0) {
+          element.className = classList
+      }
+      if(text) {
+        element.textContent = text
+      }
+      return element
+  }

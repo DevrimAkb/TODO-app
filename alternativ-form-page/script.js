@@ -16,19 +16,18 @@ todoForm.addEventListener('submit', e => {
 //Funktion för att skapa todos och skicka till API
 
 async function createTodo() {
-        const title = todoText.value
-
+        const title = todoText.value.trim()
         const post = {
             title
         }
          console.log(post)
-        const res = await fetch("https://js1-todo-api.vercel.app/api/todos?apikey=645478ef-292e-4731-ab3e-6aba10a07aa8", {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(post)
-        })
+             const res = await fetch("https://js1-todo-api.vercel.app/api/todos?apikey=645478ef-292e-4731-ab3e-6aba10a07aa8", {
+                 method: "POST",
+                 headers: {
+                     "Content-type": "application/json",
+                 },
+                 body: JSON.stringify(post)
+             })
  }
 
  /* validerar todo */

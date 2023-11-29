@@ -108,11 +108,15 @@ body {
     display: block;
 }
 
-.submit-btn {
+#submit-btn {
     padding: .5em;
     border: 0;
     font-weight: bold;
     cursor: pointer;
     width: 100%;
     border-radius: 1rem;
+}
+
+.post-container {
+    background-color: white;
 }

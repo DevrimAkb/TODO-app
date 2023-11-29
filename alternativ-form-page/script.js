@@ -1,12 +1,17 @@
 const todoForm = document.querySelector('#todoForm')
 const todoText = document.querySelector('#todoText')
+const submitBtn = document.querySelector('#submit-btn')
 
 /* Event listener */
 todoForm.addEventListener('submit', e => {
     e.preventDefault()
-    validateTodo(todoText)
-    createTodo() 
+    if(e.submitter.id === 'submit-btn'){
+        validateTodo(todoText)
+        createTodo() 
+    }
 })
+
+
 
 //Funktion för att skapa todos och skicka till API
 
@@ -91,19 +96,20 @@ function renderPosts() {
           listContainer.appendChild(createPostElement(post))
       })
     }
-    // ----------------------------------------
-    //Det här funkar men är inte optimalt
-//         posts.forEach(post => {
-//            listContainer.innerHTML += `
-//             <li>${post.title}</li>
-//             `
-//         })
-//  }
 
-  function createPostElement(post) {
-      const postDiv = createCustomElement('li', 'button', post.title)
-      console.log(postDiv)
-      return postDiv
+function createPostElement(post) {
+    // Create a div to contain both the text and the button
+    const postDiv = createCustomElement('div', 'post-container');
+
+    // Create a li element for the post title
+    const liElement = createCustomElement('li', 'post-title', post.title);
+    postDiv.appendChild(liElement);
+
+    // Create a button element
+    const buttonElement = createCustomElement('button', 'delete-button', 'Delete');
+    postDiv.appendChild(buttonElement);
+
+    return postDiv;
 }
 
   function createCustomElement(type, classList, text,) {

@@ -17,17 +17,24 @@ todoForm.addEventListener('submit', e => {
 
 async function createTodo() {
         const title = todoText.value.trim()
-        const post = {
-            title
-        }
-         console.log(post)
-             const res = await fetch("https://js1-todo-api.vercel.app/api/todos?apikey=645478ef-292e-4731-ab3e-6aba10a07aa8", {
-                 method: "POST",
-                 headers: {
-                     "Content-type": "application/json",
-                 },
-                 body: JSON.stringify(post)
-             })
+        if(title.length > 1){
+            const post = {
+                title
+            }
+            try {
+                const res = await fetch("https://js1-todo-api.vercel.app/api/todos?apikey=645478ef-292e-4731-ab3e-6aba10a07aa8", {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify(post)
+                })
+            }
+            catch(error) {
+                console.error(error.message)
+            }
+    }
+    renderPosts()
  }
 
  /* validerar todo */
@@ -62,7 +69,7 @@ function setSuccess(input) {
 }
 // -------------------------------------------------------------------------------------
 // Async api fetch
-let posts = []
+
 
 const fetchPosts = async () => {
     try {
@@ -86,6 +93,7 @@ fetchPosts();
 // Funktion för att skriva ut todos (EJ KLAR lektion 8 timestamp: 1.29.04)
 
 
+let posts = []
 
 function renderPosts() {
     const listContainer = document.querySelector('#list-container')
@@ -97,14 +105,11 @@ function renderPosts() {
     }
 
 function createPostElement(post) {
-    // Create a div to contain both the text and the button
     const postDiv = createCustomElement('div', 'post-container');
 
-    // Create a li element for the post title
     const liElement = createCustomElement('li', 'post-title', post.title);
     postDiv.appendChild(liElement);
 
-    // Create a button element
     const buttonElement = createCustomElement('button', 'delete-button', 'Delete');
     postDiv.appendChild(buttonElement);
 

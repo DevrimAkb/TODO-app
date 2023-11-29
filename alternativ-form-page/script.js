@@ -9,6 +9,7 @@ todoForm.addEventListener('submit', e => {
         validateTodo(todoText)
         createTodo() 
     }
+    renderPosts()
 })
 
 
@@ -34,7 +35,6 @@ async function createTodo() {
                 console.error(error.message)
             }
     }
-    renderPosts()
  }
 
  /* validerar todo */
@@ -99,30 +99,49 @@ function renderPosts() {
     const listContainer = document.querySelector('#list-container')
     listContainer.innerHTML = ''
 
-      posts.forEach(post => {
-          listContainer.appendChild(createPostElement(post))
-      })
-    }
-
-function createPostElement(post) {
-    const postDiv = createCustomElement('div', 'post-container');
-
-    const liElement = createCustomElement('li', 'post-title', post.title);
-    postDiv.appendChild(liElement);
-
-    const buttonElement = createCustomElement('button', 'delete-button', 'Delete');
-    postDiv.appendChild(buttonElement);
-
-    return postDiv;
+    posts.forEach(post => {
+        listContainer.innerHTML += `
+        <ul id=list-container>
+        <li class="list-content">${post.title}</li>
+        <button class="delete-button"><i class="fa-solid fa-trash"></i></button>
+        </ul>
+        `
+    })
 }
+//-----------------------------------------------------------------------------
 
-  function createCustomElement(type, classList, text,) {
-      const element = document.createElement(type)
-      if(classList.length < 0) {
-          element.className = classList
-      }
-      if(text) {
-        element.textContent = text
-      }
-      return element
-  }
+// Ett sätt att rendera posts 
+
+// function renderPosts() {
+//     const listContainer = document.querySelector('#list-container')
+//     listContainer.innerHTML = ''
+
+//       posts.forEach(post => {
+//           listContainer.appendChild(createPostElement(post))
+//       })
+//     }
+
+// function createPostElement(post) {
+//     const postDiv = createCustomElement('div', 'post-container');
+
+//     const liElement = createCustomElement('li', 'post-title', post.title);
+//     postDiv.appendChild(liElement);
+
+//     const buttonElement = createCustomElement('button', 'delete-button', 'Delete');
+//     postDiv.appendChild(buttonElement);
+
+//     return postDiv;
+// }
+
+//   function createCustomElement(type, classList, text,) {
+//       const element = document.createElement(type)
+//       if(classList.length < 0) {
+//           element.className = classList
+//       }
+//       if(text) {
+//         element.textContent = text
+//       }
+//       return element
+//   }
+
+//-------------------------------------------------------------------------------------------

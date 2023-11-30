@@ -2,14 +2,19 @@ const todoForm = document.querySelector('#todoForm')
 const todoText = document.querySelector('#todoText')
 const submitBtn = document.querySelector('#submit-btn')
 
+
+//KVAR ATT GÖRA: man ska inte kunna lägga till todo med en bokstav/karaktär
+
 /* Event listener */
-todoForm.addEventListener('submit', e => {
+todoForm.addEventListener('submit', async (e) => {
     e.preventDefault()
     if(e.submitter.id === 'submit-btn'){
-        validateTodo(todoText)
-        createTodo() 
+        if(validateTodo(todoText)){
+            await createTodo()
+            await fetchPosts()
+            renderPosts()
+        }
     }
-    renderPosts()
 })
 
 
@@ -70,6 +75,7 @@ function setSuccess(input) {
 // -------------------------------------------------------------------------------------
 // Async api fetch
 
+let posts = []
 
 const fetchPosts = async () => {
     try {
@@ -90,27 +96,44 @@ fetchPosts();
 //------------------------------------------------------------------
 
 
-// Funktion för att skriva ut todos (EJ KLAR lektion 8 timestamp: 1.29.04)
+// Funktion för att rendera och ta bort todos
 
 
-let posts = []
 
 function renderPosts() {
     const listContainer = document.querySelector('#list-container')
     listContainer.innerHTML = ''
 
     posts.forEach(post => {
-        listContainer.innerHTML += `
-        <ul id=list-container>
+        listContainer.insertAdjacentHTML('beforeend', `
         <li class="list-content">${post.title}</li>
-        <button class="delete-button"><i class="fa-solid fa-trash"></i></button>
-        </ul>
-        `
+        <button id="remove-${post._id}" class="delete-button"><i class="fa-solid fa-trash"></i></button>
+        `)
+        
+        document.querySelector('#remove-' + post._id).addEventListener('click', async () => {
+            console.log(post._id)
+            try {
+                const res = await fetch(`https://js1-todo-api.vercel.app/api/todos/${post._id}?apikey=645478ef-292e-4731-ab3e-6aba10a07aa8`, {
+                    method: 'DELETE'
+                })
+                console.log(res)
+                if(res.status !== 200){
+                    throw new Error('Could not delete todo' + res.status)
+                }
+                // const data = await res.json()
+                // console.log(data)
+                posts = posts.filter(_post => _post._id !== post._id)
+                renderPosts()
+            }
+            catch(error) {  
+                console.log('something went wrong')
+            }
+        })
     })
 }
 //-----------------------------------------------------------------------------
 
-// Ett sätt att rendera posts 
+// Ett sätt att rendera posts och lägga till element
 
 // function renderPosts() {
 //     const listContainer = document.querySelector('#list-container')

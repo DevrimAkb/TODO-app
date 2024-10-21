@@ -28,7 +28,7 @@ async function createTodo() {
                 title
             }
             try {
-                const res = await fetch("https://js1-todo-api.vercel.app/api/todos?apikey=645478ef-292e-4731-ab3e-6aba10a07aa8", {
+                const res = await fetch("https://6716046d33bc2bfe40bc003b.mockapi.io/todos", {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json",
@@ -79,7 +79,7 @@ let posts = []
 
 const fetchPosts = async () => {
     try {
-        const res = await fetch('https://js1-todo-api.vercel.app/api/todos?apikey=645478ef-292e-4731-ab3e-6aba10a07aa8');
+        const res = await fetch('https://6716046d33bc2bfe40bc003b.mockapi.io/todos');
         if(res.status !== 200) {
             throw new Error('Something went wrong')
         }
@@ -98,39 +98,74 @@ fetchPosts();
 
 // Funktion för att rendera och ta bort todos
 
-
-
 function renderPosts() {
-    const listContainer = document.querySelector('#list-container')
-    listContainer.innerHTML = ''
+    const listContainer = document.querySelector('#list-container');
+    listContainer.innerHTML = '';
 
     posts.forEach(post => {
         listContainer.insertAdjacentHTML('beforeend', `
-        <li class="list-content">${post.title}</li>
-        <button id="remove-${post._id}" class="delete-button"><i class="fa-solid fa-trash"></i></button>
-        `)
-        
-        document.querySelector('#remove-' + post._id).addEventListener('click', async () => {
-            console.log(post._id)
+        <div class="delete-container">
+            <li class="list-content">${post.title}</li>
+            <button id="remove-${post.id}" class="delete-button"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        `);
+
+        document.querySelector('#remove-' + post.id).addEventListener('click', async () => {
+            console.log(post.id);
             try {
-                const res = await fetch(`https://js1-todo-api.vercel.app/api/todos/${post._id}?apikey=645478ef-292e-4731-ab3e-6aba10a07aa8`, {
-                    method: 'DELETE'
-                })
-                console.log(res)
-                if(res.status !== 200){
-                    throw new Error('Could not delete todo' + res.status)
+                const res = await fetch(`https://6716046d33bc2bfe40bc003b.mockapi.io/todos/${post.id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                });
+                console.log(res);
+                if (res.status !== 200) {
+                    throw new Error('Could not delete todo: ' + res.status);
                 }
-                // const data = await res.json()
-                // console.log(data)
-                posts = posts.filter(_post => _post._id !== post._id)
-                renderPosts()
+                posts = posts.filter(_post => _post.id !== post.id);
+                renderPosts();
+            } catch (error) {
+                console.log('Something went wrong:', error);
             }
-            catch(error) {  
-                console.log('something went wrong')
-            }
-        })
-    })
+        });
+    });
 }
+
+
+
+
+// function renderPosts() {
+//     const listContainer = document.querySelector('#list-container')
+//     listContainer.innerHTML = ''
+
+//     posts.forEach(post => {
+//         listContainer.insertAdjacentHTML('beforeend', `
+//         <li class="list-content">${post.title}</li>
+//         <button id="remove-${post._id}" class="delete-button"><i class="fa-solid fa-trash"></i></button>
+//         `)
+        
+//         document.querySelector('#remove-' + post._id).addEventListener('click', async () => {
+//             console.log(post._id)
+//             try {
+//                 const res = await fetch(`https://6716046d33bc2bfe40bc003b.mockapi.io/todos/${id}`, {
+//                     method: 'DELETE'
+//                 })
+//                 console.log(res)
+//                 if(res.status !== 200){
+//                     throw new Error('Could not delete todo' + res.status)
+//                 }
+//                 // const data = await res.json()
+//                 // console.log(data)
+//                 posts = posts.filter(_post => _post._id !== post._id)
+//                 renderPosts()
+//             }
+//             catch(error) {  
+//                 console.log('something went wrong')
+//             }
+//         })
+//     })
+// }
 //-----------------------------------------------------------------------------
 
 // Ett sätt att rendera posts och lägga till element

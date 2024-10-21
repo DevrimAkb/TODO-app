@@ -84,6 +84,27 @@ body {
     outline-color: var(--clr-success);
 }
 
+#list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.delete-container {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem;
+}
+
+.delete-button {
+    background-color: transparent;
+    padding: .3rem;
+    cursor: pointer;
+    border-radius: .3rem;
+} && .delete-button:hover {
+    background-color: var(--clr-error);
+    color: white;
+}
 .icon {
     position: absolute;
     right: 0;
